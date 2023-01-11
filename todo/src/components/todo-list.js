@@ -1,11 +1,15 @@
 import TodoListItem from './todo-list-item';
 
-const Todo = ()=>{
-    const items = ['Item 1', 'Second'];
+const Todo = ({todos})=>{
+    const elems = todos.map((el, i) => {
+        return (<li key={i}>
+            <TodoListItem label={el.label} important={el.important}/>
+            </li>)
+    });
+
     return(
         <ul>
-            <li><TodoListItem label="Item 1"/></li>
-            <li><TodoListItem label="Second" important /></li>
+            {elems}
         </ul>
     );
 }

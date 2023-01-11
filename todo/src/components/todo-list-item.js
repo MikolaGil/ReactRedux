@@ -1,5 +1,5 @@
 
-const TodoListItem = ({label, important = false})=>{
+const TodoListItem = ({label, important=false})=>{
     
     const spanStyle={
         color: important ? 'tomato': 'violet'
