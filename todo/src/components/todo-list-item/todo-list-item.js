@@ -1,18 +1,55 @@
+import React, {Component} from 'react';
 import './todo-list-item.css';
 
-const TodoListItem = ({label, important=false})=>{
+export default class TodoListItem extends Component{
 
-    return (<div className="todo-list-item">
-        {label}
-        <span className='float-right'>
-        <button type='button' className='btn btn-outline-success btn-sm'>
-            <i className='fa fa-exclamation'/>
-        </button>
-        <button type='button' className='btn btn-outline-danger btn-sm'>
-            <i className='fa-trash-can'/>
-        </button>
-        </span>
-        </div>)
+    constructor(){
+        super();
+
+        this.state = {
+            done: false,
+            important: false
+        };
+    }
+
+    onLabelClick = ()=>{
+        this.setState((state) =>{
+            return {done: !state.done};
+        });
+    }
+    
+    onImportantButtonClick = ()=>{
+        this.setState((state) =>{
+            return {important: !state.important}
+        })
+    }
+    render(){
+        const { label, onDeleted} = this.props;
+        
+        const {done, important} = this.state;
+        let classNames = 'todo-list-item';
+        if (done) classNames += ' done';
+        if (important) classNames += ' important';
+
+        return (
+        <span className={classNames}>
+            <span className='todo-list-item-label'
+            onClick={this.onLabelClick}>
+                {label}
+            </span>
+            <span className='float-right'>
+                <button type='button' 
+                className='btn btn-outline-success btn-sm float-right'
+                onClick={this.onImportantButtonClick}>
+                    <i className='fa fa-exclamation'/>
+                </button>
+                <button type='button' 
+                className='btn btn-outline-danger btn-sm float-right'
+                onClick={onDeleted}
+                >
+                    U
+                </button>
+            </span>
+        </span>)
+    }
 }
-
-export default TodoListItem;

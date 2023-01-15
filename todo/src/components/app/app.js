@@ -14,13 +14,13 @@ const App = () =>{
     ];
 
     return (
-        <div className='todo-app'>
+        <div className='todo-app w-300'>
             <Header/>
             <div className='top-panel d-flex'>
               <SearchPanel/>
               <ItemStatusFilter/>
             </div>
-            <Todo todos={data}/>
+            <Todo todos={data} onDeleted={(id) =>{console.log('del', id)}}/>
         </div>
     );
 }
