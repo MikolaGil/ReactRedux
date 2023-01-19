@@ -4,6 +4,7 @@ import Header from '../app-header/app-header';
 import ItemStatusFilter from '../item-status-filter/item-status-filter';
 import SearchPanel from '../search-panel/search-panel';
 import Todo from '../todo-list/todo-list';
+import AddBtn from '../add-btn/add-btn';
 import './app.css';
 
 export default class App extends Component{
@@ -29,9 +30,27 @@ export default class App extends Component{
         });
     }
 
+    addItem = (label) =>{
+        const id = Math.random()*100;
+        const obj = {label: label, id: id, important: false };
+
+        this.setState(({data}) => {
+            return {
+                data: [...data, obj]
+            }
+        });
+    }
+
+    toggleImportant=(id) =>{
+
+    };
+
+    toggleDone= (id) =>{
+
+    }
     render(){
         return (
-            <div className='todo-app w-300'>
+            <div className='todo-app w-50'>
                 <Header/>
                 <div className='top-panel d-flex'>
                   <SearchPanel/>
@@ -40,7 +59,10 @@ export default class App extends Component{
                 <Todo 
                 todos={this.state.data} 
                 onDeleted={this.deleteItem}
+                onToggleImportant={this.toggleImportant}
+                onToggleDone={this.toggleDone}
                 />
+                <AddBtn onAddItem={this.addItem}/>
             </div>
         );
     }
