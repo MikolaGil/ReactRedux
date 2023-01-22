@@ -11,12 +11,20 @@ export default class App extends Component{
     
     state = {
         data: [
-            { label: 'Task 1', important: true, id:1 },
-            { label: 'Second', important: false, id: 2 },
-            { label: 'tHIRD', important: false, id:3 }
+            this.createTodoItem('Task 111'),
+            this.createTodoItem('Second'),
+            this.createTodoItem('tHIRD')
         ]
     }
 
+    createTodoItem(label){
+        return {
+            id: Math.round(Math.random()* 100),
+            label: label,
+            important: false,
+            done: false
+        }
+    }
     deleteItem = (id)=>{
         this.setState(({data})=>{
             const idx = data.findIndex(el => el.id === id);
@@ -31,8 +39,7 @@ export default class App extends Component{
     }
 
     addItem = (label) =>{
-        const id = Math.random()*100;
-        const obj = {label: label, id: id, important: false };
+        const obj = this.createTodoItem(label)
 
         this.setState(({data}) => {
             return {
@@ -42,22 +49,47 @@ export default class App extends Component{
     }
 
     toggleImportant=(id) =>{
-
+        this.setState(({data})=>{
+            return {
+                data: this.toggleProp(data, id, 'important')
+            }
+        });
     };
 
-    toggleDone= (id) =>{
+    toggleProp = (arr, id, propName) =>{
+        const idx = arr.findIndex(el => el.id === id);
 
+        const oldItem = arr[idx];
+        const newItem = {...oldItem, [propName]: !oldItem[propName]};
+        const before = arr.slice(0, idx);
+        const after = arr.slice(idx+1);
+        const newArr = [...before, newItem, ...after];
+        
+        return newArr;
     }
+
+    toggleDone= (id) =>{
+        this.setState(({data})=>{
+            return {
+                data: this.toggleProp(data, id, 'done')
+            }
+        });
+    }
+
     render(){
+        const {data} = this.state;
+        const doneCount = data.filter(el =>el.done).length;
+        const toDoCount = data.length - doneCount;
+
         return (
             <div className='todo-app w-50'>
-                <Header/>
+                <Header todo={toDoCount} done={doneCount}/>
                 <div className='top-panel d-flex'>
                   <SearchPanel/>
                   <ItemStatusFilter/>
                 </div>
                 <Todo 
-                todos={this.state.data} 
+                todos={data} 
                 onDeleted={this.deleteItem}
                 onToggleImportant={this.toggleImportant}
                 onToggleDone={this.toggleDone}
