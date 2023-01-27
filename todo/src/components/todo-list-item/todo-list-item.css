@@ -12,13 +12,20 @@
     line-height: 35px;
     cursor: pointer;
     user-select: none;
+    font-weight: 600;
 }
 
 .todo-list-item.done .todo-list-item-label{
     text-decoration: line-through;
+    text-decoration-thickness: 0.2rem;
+    color: gray;
 }
 
 .todo-list-item.important .todo-list-item-label{
     font-weight: bold;
     color: steelblue;
+}
+
+.list-item-elem{
+    float: right;
 }

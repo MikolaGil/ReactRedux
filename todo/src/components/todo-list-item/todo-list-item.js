@@ -25,7 +25,7 @@ export default class TodoListItem extends Component{
             onClick={onToggleDone}>
                 {label}
             </span>
-            <span className='float-right'>
+            <div className='list-item-elem'>
                 <button type='button' 
                 className='btn btn-outline-success btn-sm float-right'
                 onClick={onToggleImportant}>
@@ -36,7 +36,7 @@ export default class TodoListItem extends Component{
                 onClick={onDeleted}>
                     U
                 </button>
-            </span>
+            </div>
         </span>)
     }
 }

@@ -14,6 +14,10 @@ export default class AddBtn extends Component{
 
     onSubmit = (ev) =>{
         ev.preventDefault();
+        if(!this.state.label){
+            return;
+        }
+
         this.props.onAddItem(this.state.label);
         this.setState({label: ''});
     }
